@@ -13,3 +13,20 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Area {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  employees Employee[]
+}
+
+model Employee {
+  id          Int     @id @default(autoincrement())
+  fullName    String
+  dni         String  @unique
+  birthDate   DateTime
+  isDeveloper Boolean
+  description String
+  area        Area    @relation(fields: [areaId], references: [id])
+  areaId      Int
+}
