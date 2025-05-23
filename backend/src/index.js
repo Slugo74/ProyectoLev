@@ -83,6 +83,28 @@ app.get('/employees', async(req, res) => {
 });
 
 // 2. GET (Para listar un empleado en particular)
+/**
+ * @swagger
+ * /employees/{id}:
+ * get:
+ *  summary: Obtiene un empleado por Id
+ *  parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *          type: integer
+ *        description: Id del empleado
+ *  responses:
+ *      200:
+ *          description: Detalles del empleado
+ *          content:
+ *              application/json: 
+ *                  schema:
+ *                      $ref: '#/components/schema/Employee'
+ *      404:
+ *          description: Empleado no encontrado
+ */
 app.get('/employees/:id', async(req, res) => {
     const { id } = req.params;
     try {
@@ -148,6 +170,34 @@ app.post('/employees', async(req, res) => {
 });
 
 // 4.PUT (Para actualizar un empleado)
+/**
+ * @swagger
+ * /employees/{id}:
+ * put:
+ *  summary: actualiza un empleado
+ *  parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *          type: integer
+ *        description: Id del empleado
+ *  requestBody:
+ *      content:
+ *          application/json:
+ *              schema:
+ *                  $ref: '#/components/schemas/Employee'
+ *              example:
+ *                  fullname: "Santiago Lugo"
+ *                  dni: "44668549"
+ *                  birthDate: "2001-09-11"
+ *                  isDeveloper: false
+ *  responses:
+ *      200:
+ *          description: Empleado actualizado
+ *      404:
+ *          description: Empleado no encontrado
+ */
 app.put('/employees/:id', async(req, res) => {
     const { id } = req.params;
     const { fullName, dni, birthDate, isDeveloper, description, areaId } = req.body;
@@ -169,6 +219,25 @@ app.put('/employees/:id', async(req, res) => {
     }
 });
 
+//4. Eliminar un empleado
+/** 
+ * @swagger
+ * /employees/{id}:
+ * delete:
+ *  summary: Elimina un empleado
+ *  parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema: 
+ *          type: integer
+ *        description: Id del empleado
+ *  responses:
+ *      204:
+ *          description: Empleado eliminado
+ *      404:
+ *          description: Empleado no encontrado
+ */
 app.delete('/employees/:id', async(req, res) => {
     const { id } = req.params;
     try {
