@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
@@ -46,6 +47,7 @@ const options = {
 const specs = swaggerJsdoc(options);
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
+app.use(cors());
 
 app.use(express.json());
 
